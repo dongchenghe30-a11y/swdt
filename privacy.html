@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - ClawDiag</title>
+    <meta name="description" content="ClawDiag Privacy Policy - Your privacy is important to us">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Cpath d='M8 16L14 10L20 16L14 22L8 16Z' fill='white'/%3E%3Cpath d='M14 16L20 10L26 16L20 22L14 16Z' fill='white' fill-opacity='0.6'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #F9FAFB; }
+        .legal-container { max-width: 800px; margin: 80px auto 40px; padding: 32px; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .legal-container h1 { font-size: 28px; margin-bottom: 24px; color: #1F2937; border-bottom: 2px solid #2563EB; padding-bottom: 12px; }
+        .legal-container h2 { font-size: 20px; margin: 24px 0 12px; color: #1F2937; }
+        .legal-container p, .legal-container li { font-size: 15px; line-height: 1.8; color: #4B5563; margin-bottom: 12px; }
+        .legal-container ul { padding-left: 24px; }
+        .legal-container a { color: #2563EB; }
+    </style>
+</head>
+<body>
+    <div class="legal-container" id="content">
+        <!-- Content loaded by JS -->
+    </div>
+
+    <script src="i18n.js"></script>
+    <script>
+    (function() {
+        const isEnglish = location.pathname.includes('-en.html') || 
+                          new URLSearchParams(location.search).get('lang') === 'en' ||
+                          (localStorage.getItem('clawdiag-lang') === 'en');
+        
+        const content = document.getElementById('content');
+        
+        if (isEnglish) {
+            document.documentElement.lang = 'en';
+            document.title = 'Privacy Policy - ClawDiag';
+            content.innerHTML = `
+                <h1>Privacy Policy</h1>
+                <p>Last updated: April 1, 2026</p>
+                
+                <h2>1. Overview</h2>
+                <p>ClawDiag ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, store, and protect your personal information.</p>
+                
+                <h2>2. Information We Collect</h2>
+                <p>We may collect the following types of information:</p>
+                <ul>
+                    <li><strong>Device Information</strong>: Including browser type, operating system, access time, etc., to improve service experience.</li>
+                    <li><strong>Usage Data</strong>: Including the types of diagrams you create, features you use, for statistical analysis.</li>
+                    <li><strong>Cookies</strong>: We use cookies to remember your preferences, such as language settings.</li>
+                </ul>
+                
+                <h2>3. How We Use Your Information</h2>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Provide, maintain, and improve our services</li>
+                    <li>Analyze user behavior to optimize product experience</li>
+                    <li>Respond to your inquiries and requests</li>
+                    <li>Send important service-related notifications</li>
+                </ul>
+                
+                <h2>4. Data Protection</h2>
+                <p>We use industry-standard security measures to protect your data, including encrypted transmission and secure storage. However, please note that no data transmission can be guaranteed 100% secure.</p>
+                
+                <h2>5. Third-Party Services</h2>
+                <p>Our services may contain links to third-party websites. We are not responsible for the privacy practices of third-party websites. We recommend that you read the privacy policies of third-party websites.</p>
+                
+                <h2>6. Children's Privacy</h2>
+                <p>Our services are not intended for children under 13. We do not knowingly collect personal information from children.</p>
+                
+                <h2>7. Changes to This Policy</h2>
+                <p>We may update this Privacy Policy at any time. For material changes, we will notify you through website announcements or email.</p>
+                
+                <h2>8. Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                <ul>
+                    <li>Email: support@clawdiag.com</li>
+                </ul>
+            `;
+        } else {
+            content.innerHTML = `
+                <h1>隐私政策</h1>
+                <p>最后更新日期：2026年4月1日</p>
+                
+                <h2>1. 概述</h2>
+                <p>ClawDiag（以下简称"我们"）重视用户的隐私保护。本隐私政策说明了我们如何收集、使用、存储和保护您的个人信息。</p>
+                
+                <h2>2. 信息收集</h2>
+                <p>我们可能收集以下类型的信息：</p>
+                <ul>
+                    <li><strong>设备信息</strong>：包括浏览器类型、操作系统、访问时间等，用于改善服务体验。</li>
+                    <li><strong>使用数据</strong>：包括您创建的图表类型、使用功能等，用于统计分析。</li>
+                    <li><strong>Cookies</strong>：我们使用Cookies来记住您的偏好设置，如语言选择。</li>
+                </ul>
+                
+                <h2>3. 信息使用</h2>
+                <p>我们使用收集的信息用于：</p>
+                <ul>
+                    <li>提供、维护和改进我们的服务</li>
+                    <li>分析用户行为以优化产品体验</li>
+                    <li>响应您的咨询和请求</li>
+                    <li>发送与服务相关的重要通知</li>
+                </ul>
+                
+                <h2>4. 信息保护</h2>
+                <p>我们采用行业标准的安全措施保护您的数据，包括加密传输、安全存储等。但请注意，任何数据传输都无法保证100%安全。</p>
+                
+                <h2>5. 第三方服务</h2>
+                <p>我们的服务可能包含第三方链接，我们不对第三方网站的隐私实践负责。建议您阅读第三方网站的隐私政策。</p>
+                
+                <h2>6. 儿童隐私</h2>
+                <p>我们的服务不针对13岁以下的儿童。我们不会故意收集儿童的个人信息。</p>
+                
+                <h2>7. 政策变更</h2>
+                <p>我们可能随时更新本隐私政策。如有重大变更，我们将通过网站公告或电子邮件通知您。</p>
+                
+                <h2>8. 联系我们</h2>
+                <p>如果您对本隐私政策有任何疑问，请联系我们：</p>
+                <ul>
+                    <li>电子邮件：support@clawdiag.com</li>
+                </ul>
+            `;
+        }
+    })();
+    </script>
+</body>
+</html>

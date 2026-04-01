@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawDiag - 在线图表工具 | Free Online Diagram Maker</title>
+    <meta name="description" content="ClawDiag提供免费的在线图表制作工具，支持流程图、时序图、思维导图等19种图表类型。无需安装，直接在浏览器中创建专业图表。">
+    <meta name="keywords" content="在线图表工具,流程图制作,时序图,思维导图,甘特图,ER图,类图, diagrams, flowchart, mind map, gantt chart">
+    <meta name="author" content="ClawDiag">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://clawdiag.com/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Cpath d='M8 16L14 10L20 16L14 22L8 16Z' fill='white'/%3E%3Cpath d='M14 16L20 10L26 16L20 22L14 16Z' fill='white' fill-opacity='0.6'/%3E%3C/svg%3E">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="#2563EB"/>
+                    <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="white"/>
+                    <path d="M14 16L20 10L26 16L20 22L14 16Z" fill="white" fill-opacity="0.6"/>
+                </svg>
+                <span class="logo-text">ClawDiag</span>
+            </a>
+            
+            <div class="header-actions">
+                <button class="lang-switch" id="langSwitch" aria-label="Switch Language">
+                    <span class="lang-text">EN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Editor Section (Always Visible) -->
+    <section class="editor" id="editor">
+        <div class="editor-container">
+            <div class="editor-body">
+                <!-- Chart Type Selector - Vertical Left -->
+                <div class="type-bar" id="typeBar">
+                    <button class="type-btn active" data-type="flowchart" data-i18n="diagrams.flowchart.title">流程图</button>
+                    <button class="type-btn" data-type="sequence" data-i18n="diagrams.sequence.title">时序图</button>
+                    <button class="type-btn" data-type="class" data-i18n="diagrams.class.title">类图</button>
+                    <button class="type-btn" data-type="state" data-i18n="diagrams.state.title">状态图</button>
+                    <button class="type-btn" data-type="gantt" data-i18n="diagrams.gantt.title">甘特图</button>
+                    <button class="type-btn" data-type="er" data-i18n="diagrams.er.title">ER图</button>
+                    <button class="type-btn" data-type="journey" data-i18n="diagrams.journey.title">用户旅程</button>
+                    <button class="type-btn" data-type="git" data-i18n="diagrams.git.title">Git图</button>
+                    <button class="type-btn" data-type="mindmap" data-i18n="diagrams.mindmap.title">思维导图</button>
+                    <button class="type-btn" data-type="pie" data-i18n="diagrams.pie.title">饼图</button>
+                    <button class="type-btn" data-type="timeline" data-i18n="diagrams.timeline.title">时间线</button>
+                    <button class="type-btn" data-type="kanban" data-i18n="diagrams.kanban.title">看板</button>
+                    <button class="type-btn" data-type="quadrant" data-i18n="diagrams.quadrant.title">四象限</button>
+                    <button class="type-btn" data-type="sankey" data-i18n="diagrams.sankey.title">桑基图</button>
+                    <button class="type-btn" data-type="xychart" data-i18n="diagrams.xychart.title">XY图表</button>
+                    <button class="type-btn" data-type="block" data-i18n="diagrams.block.title">块状图</button>
+                    <button class="type-btn" data-type="architecture" data-i18n="diagrams.architecture.title">架构图</button>
+                    <button class="type-btn" data-type="packet" data-i18n="diagrams.packet.title">数据包图</button>
+                </div>
+                <div class="code-panel">
+                    <div class="panel-header">
+                        <span data-i18n="editor.code">Mermaid 代码</span>
+                        <button class="btn btn-sm" id="copyCode" data-i18n="editor.copy">复制</button>
+                    </div>
+                    <textarea id="codeEditor" class="code-editor" spellcheck="false"></textarea>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" id="renderBtn" data-i18n="editor.render">渲染图表</button>
+                    </div>
+                </div>
+                <div class="preview-panel">
+                    <div class="panel-header">
+                        <span data-i18n="editor.preview">预览</span>
+                        <div class="editor-actions">
+                            <button class="btn btn-tool" id="zoomIn" title="Zoom In">+</button>
+                            <button class="btn btn-tool" id="zoomOut" title="Zoom Out">-</button>
+                            <button class="btn btn-tool" id="resetZoom" title="Reset">⟲</button>
+                            <div class="export-dropdown">
+                                <button class="btn btn-primary export-btn" id="exportBtn">
+                                    <span data-i18n="editor.export">导出</span> ▾
+                                </button>
+                                <div class="export-menu" id="exportMenu">
+                                    <button class="export-option" data-format="svg" data-i18n="editor.exportSvg">导出SVG</button>
+                                    <button class="export-option" data-format="png" data-i18n="editor.exportPng">导出PNG</button>
+                                    <button class="export-option" data-format="jpg" data-i18n="editor.exportJpg">导出JPG</button>
+                                    <button class="export-option" data-format="webp" data-i18n="editor.exportWebp">导出WEBP</button>
+                                    <button class="export-option" data-format="pdf" data-i18n="editor.exportPdf">导出PDF</button>
+                                    <button class="export-option" data-format="code" data-i18n="editor.exportCode">导出代码</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-tool" id="helpBtn" title="语法速查表">?</button>
+                        </div>
+                    </div>
+                    <div class="preview-container" id="previewContainer">
+                        <div class="diagram-output" id="diagramOutput"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO Content - Chart Types Guide -->
+    <section class="seo-content">
+        <div class="container">
+            <h2 data-i18n="seo.diagramGuide">图表类型使用指南</h2>
+            <div class="seo-grid" id="seoGrid">
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.flowchart.title">流程图</h3>
+                    <p data-i18n="seo.flowchart.desc">流程图是展示业务流程和工作流程的最佳工具。通过标准化符号和清晰箭头，帮助您可视化决策路径、业务逻辑和操作步骤。适用于项目管理、流程优化和系统设计。</p>
+                </div>
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.sequence.title">时序图</h3>
+                    <p data-i18n="seo.sequence.desc">时序图用于展示系统组件之间的交互时序和消息传递。非常适合描述API调用、函数调用链和分布式系统中的请求响应流程。是软件架构设计的重要工具。</p>
+                </div>
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.class.title">类图</h3>
+                    <p data-i18n="seo.class.desc">类图是面向对象编程的核心工具，展示类的属性、方法和类之间的关系。帮助开发团队理解系统结构，实现代码生成和逆向工程。适用于软件设计和架构文档。</p>
+                </div>
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.state.title">状态图</h3>
+                    <p data-i18n="seo.state.desc">状态图描述对象在其生命周期内所经历的状态序列以及导致状态转换的事件。适用于游戏开发、工作流引擎和协议设计等领域。</p>
+                </div>
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.gantt.title">甘特图</h3>
+                    <p data-i18n="seo.gantt.desc">甘特图是项目管理的经典工具，通过条形图展示项目进度、任务依赖和时间安排。帮助项目经理追踪进度、协调资源和优化工作流程。</p>
+                </div>
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.mindmap.title">思维导图</h3>
+                    <p data-i18n="seo.mindmap.desc">思维导图是一种放射性思维的表达方式，适合头脑风暴、笔记整理和知识管理。通过中心主题向四周发散，帮助您组织想法和激发创意。</p>
+                </div>
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.er.title">ER图</h3>
+                    <p data-i18n="seo.er.desc">ER图(实体关系图)是数据库设计的标准工具，展示实体、属性和实体之间的关系。帮助设计师规划数据库结构，是系统分析和数据库开发的重要文档。</p>
+                </div>
+                <div class="seo-card">
+                    <h3 data-i18n="diagrams.git.title">Git图</h3>
+                    <p data-i18n="seo.git.desc">Git图可视化展示代码版本历史和分支合并情况。帮助开发团队理解代码演进、追踪bug引入点和管理多人协作开发。是现代软件开发不可或缺的工具。</p>
+                </div>
+                <!-- Hidden cards - shown when "View More" is clicked -->
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.journey.title">用户旅程</h3>
+                    <p data-i18n="seo.journey.desc">用户旅程图展示用户在产品或服务中的完整体验过程。通过阶段划分和情感评分，帮助产品团队识别用户痛点和优化机会。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.pie.title">饼图</h3>
+                    <p data-i18n="seo.pie.desc">饼图是最直观的数据可视化工具之一，通过圆形切片展示各部分占比情况。适合展示市场份额、预算分配、调查结果等比例数据。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.timeline.title">时间线</h3>
+                    <p data-i18n="seo.timeline.desc">时间线图用于展示事件发展的时间顺序和历史进程。适合公司发展历程、项目里程碑、个人履历等场景。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.kanban.title">看板</h3>
+                    <p data-i18n="seo.kanban.desc">看板是一种可视化的工作流程管理工具，通过列式布局展示任务在不同阶段的状态。帮助团队实现可视化协作。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.quadrant.title">四象限</h3>
+                    <p data-i18n="seo.quadrant.desc">四象限图通过二维矩阵将项目或任务按重要性和紧急性进行分类。帮助用户识别优先级，做出合理的资源分配决策。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.sankey.title">桑基图</h3>
+                    <p data-i18n="seo.sankey.desc">桑基图是一种高效的流向可视化图表，宽度代表流量大小。适用于能源分配、资金流动、用户转化等场景。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.xychart.title">XY图表</h3>
+                    <p data-i18n="seo.xychart.desc">XY图表结合柱状图和折线图，展示数据的变化趋势和对比。支持双轴显示，是数据分析报告的常用图表类型。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.block.title">块状图</h3>
+                    <p data-i18n="seo.block.desc">块状图用于展示系统架构和模块之间的关系。通过方块和连线展示系统的组成部分和数据流向。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.architecture.title">架构图</h3>
+                    <p data-i18n="seo.architecture.desc">架构图是系统设计的核心工具，展示系统的技术栈、组件交互和部署结构。是技术方案评审和文档编写的重要依据。</p>
+                </div>
+                <div class="seo-card hidden-card" style="display: none;">
+                    <h3 data-i18n="diagrams.packet.title">数据包图</h3>
+                    <p data-i18n="seo.packet.desc">数据包图用于可视化网络协议和数据结构。展示数据包各字段的含义和层次关系，是网络教学和协议分析的有效工具。</p>
+                </div>
+            </div>
+            <div class="seo-more-wrapper">
+                <button class="seo-view-more" id="viewMoreBtn" data-i18n="seo.viewMore">查看更多</button>
+            </div>
+            
+            <!-- Use Cases SEO -->
+            <div class="seo-usecases">
+                <h2 data-i18n="seo.useCasesTitle">图表适用场景</h2>
+                <div class="usecases-grid">
+                    <div class="usecase-card">
+                        <h3 data-i18n="seo.useCase1Title">软件开发</h3>
+                        <ul data-i18n="seo.useCase1Desc">
+                            <li>时序图 - 描述API接口调用和数据流转</li>
+                            <li>类图 - 展示面向对象设计和系统架构</li>
+                            <li>状态图 - 建模业务状态和流程控制</li>
+                            <li>流程图 - 梳理业务流程和算法逻辑</li>
+                        </ul>
+                    </div>
+                    <div class="usecase-card">
+                        <h3 data-i18n="seo.useCase2Title">项目管理</h3>
+                        <ul data-i18n="seo.useCase2Desc">
+                            <li>甘特图 - 规划项目进度和任务排期</li>
+                            <li>看板 - 可视化任务状态和团队协作</li>
+                            <li>思维导图 - 分解项目目标和工作范围</li>
+                            <li>流程图 - 规划项目流程和审批节点</li>
+                        </ul>
+                    </div>
+                    <div class="usecase-card">
+                        <h3 data-i18n="seo.useCase3Title">数据分析</h3>
+                        <ul data-i18n="seo.useCase3Desc">
+                            <li>饼图 - 展示数据占比和分布情况</li>
+                            <li>桑基图 - 分析数据流向和转化率</li>
+                            <li>XY图表 - 可视化数据趋势和相关性</li>
+                            <li>四象限 - 优先级排序和分类分析</li>
+                        </ul>
+                    </div>
+                    <div class="usecase-card">
+                        <h3 data-i18n="seo.useCase4Title">系统设计</h3>
+                        <ul data-i18n="seo.useCase4Desc">
+                            <li>架构图 - 描述系统整体架构和技术栈</li>
+                            <li>ER图 - 设计数据库结构和表关系</li>
+                            <li>块状图 - 展示模块划分和组件关系</li>
+                            <li>数据包 - 描述网络协议和数据结构</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="seo-faq">
+                <h2 data-i18n="seo.faqTitle">常见问题</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="seo.faq1q">ClawDiag是免费的吗？</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="seo.faq1a">是的，ClawDiag完全免费使用。无需注册、无需付费，所有功能都可以免费使用。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="seo.faq2q">我创建的图表会保存在哪里？</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="seo.faq2a">您的图表代码保存在浏览器的本地存储中。如果需要保存或分享图表，可以导出为PNG、SVG或PDF文件。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="seo.faq3q">支持哪些图表类型？</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="seo.faq3a">ClawDiag支持19种图表类型，包括流程图、时序图、类图、状态图、甘特图、思维导图、ER图、Git图、饼图、时间线、看板、四象限、桑基图、XY图表、块状图、架构图、数据包图等。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="seo.faq4q">导出的图片可以商用吗？</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="seo.faq4a">可以。您导出的图表图片没有任何使用限制，可以用于商业用途、教学文档、网站展示等。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="seo.faq5q">如何学习Mermaid语法？</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="seo.faq5a">点击编辑器上方的"?"按钮可以查看语法速查表。我们也提供了每种图表类型的示例代码，您可以参考修改。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="seo.faq6q">什么是思维导图？</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="seo.faq6a">思维导图是一种以中心主题为核心，向四周发散的放射性思维可视化工具。它通过层级结构和颜色帮助您组织想法、激发创意，适用于头脑风暴、笔记整理、项目规划和知识管理等多种场景。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="seo-about">
+                <h2 data-i18n="seo.aboutTitle">关于ClawDiag</h2>
+                <div class="seo-about-content">
+                    <div class="seo-about-card">
+                        <p data-i18n="seo.aboutDesc">ClawDiag是一款免费的在线图表制作工具，基于Mermaid技术构建。我们致力于为用户提供简洁、高效的图表创建体验，无需安装任何软件，直接在浏览器中即可创建专业的流程图、时序图、思维导图、甘特图等19种图表类型。</p>
+                    </div>
+                    <div class="seo-about-card">
+                        <p data-i18n="seo.aboutFeature">我们的工具支持实时预览、代码编辑、PNG导出等功能，同时提供中英文双语界面，满足全球用户的需求。无论您是项目经理、开发者、学生还是教师，ClawDiag都能帮助您快速创建清晰、规范的图表。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <a href="/" class="logo">
+                        <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="8" fill="#2563EB"/>
+                            <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="white"/>
+                            <path d="M14 16L20 10L26 16L20 22L14 16Z" fill="white" fill-opacity="0.6"/>
+                        </svg>
+                        <span>ClawDiag</span>
+                    </a>
+                    <p data-i18n="footer.desc">免费在线图表工具，让创建图表更简单</p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <a href="privacy.html" data-i18n="footer.privacy">隐私政策</a>
+                        <a href="terms.html" data-i18n="footer.terms">服务条款</a>
+                        <a href="contact.html" data-i18n="footer.contact">联系我们</a>
+                    </div>
+                    <p class="footer-copyright" data-i18n="footer.copyright">© 2026 ClawDiag. 保留所有权利。</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" style="display: none;">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Syntax Cheat Sheet Modal -->
+    <div class="modal-overlay" id="cheatSheetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="editor.cheatSheet">Mermaid 语法速查表</h2>
+                <button class="modal-close" id="closeCheatSheet">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cheat-sheet-grid">
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.flowchart">流程图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A[矩形]</code>
+                            <span data-i18n="cheat.rectDesc">普通节点</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A(圆角)</code>
+                            <span data-i18n="cheat.roundDesc">开始/结束</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A{菱形}</code>
+                            <span data-i18n="cheat.diamondDesc">判断节点</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A-->B</code>
+                            <span data-i18n="cheat.arrowDesc">箭头连接</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A--&gt;|文本|B</code>
+                            <span data-i18n="cheat.labelArrowDesc">带标签箭头</span>
+                        </div>
+                    </div>
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.sequence">时序图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">participant A</code>
+                            <span data-i18n="cheat.participantDesc">定义参与者</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A-&gt;&gt;B: 消息</code>
+                            <span data-i18n="cheat.syncMsgDesc">同步消息</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A--&gt;&gt;B: 消息</code>
+                            <span data-i18n="cheat.asyncMsgDesc">异步消息</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A--&gt;B</code>
+                            <span data-i18n="cheat.returnMsgDesc">返回消息</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">Note over A,B</code>
+                            <span data-i18n="cheat.noteDesc">注释</span>
+                        </div>
+                    </div>
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.class">类图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">class A</code>
+                            <span data-i18n="cheat.classDefDesc">定义类</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">+属性</code>
+                            <span data-i18n="cheat.publicDesc">公开属性</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">-属性</code>
+                            <span data-i18n="cheat.privateDesc">私有属性</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A &lt;|-- B</code>
+                            <span data-i18n="cheat.inheritDesc">继承关系</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A *-- B</code>
+                            <span data-i18n="cheat.compositionDesc">组合关系</span>
+                        </div>
+                    </div>
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.state">状态图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">[*] --&gt; A</code>
+                            <span data-i18n="cheat.startStateDesc">初始状态</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A --&gt; B</code>
+                            <span data-i18n="cheat.transDesc">状态转换</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A --&gt; B: 事件</code>
+                            <span data-i18n="cheat.eventDesc">带事件转换</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">B --&gt; [*]</code>
+                            <span data-i18n="cheat.endStateDesc">结束状态</span>
+                        </div>
+                    </div>
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.gantt">甘特图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">title 标题</code>
+                            <span data-i18n="cheat.ganttTitleDesc">图表标题</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">dateFormat YYYY-MM-DD</code>
+                            <span data-i18n="cheat.dateFormatDesc">日期格式</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">section 阶段</code>
+                            <span data-i18n="cheat.sectionDesc">分组阶段</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">任务: id, 5d</code>
+                            <span data-i18n="cheat.taskDesc">任务(天数)</span>
+                        </div>
+                    </div>
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.mindmap">思维导图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">root((中心))</code>
+                            <span data-i18n="cheat.rootDesc">中心主题</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">  分支</code>
+                            <span data-i18n="cheat.branchDesc">一级分支(2空格)</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">    子分支</code>
+                            <span data-i18n="cheat.subBranchDesc">二级分支(4空格)</span>
+                        </div>
+                    </div>
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.er">ER图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A ||--o{ B</code>
+                            <span data-i18n="cheat.oneManyDesc">一对多</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A {|--|{ B</code>
+                            <span data-i18n="cheat.oneOneDesc">一对一</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">A {</code>
+                            <span data-i18n="cheat.entityStartDesc">实体开始</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">  int id PK</code>
+                            <span data-i18n="cheat.pkDesc">主键</span>
+                        </div>
+                    </div>
+                    <div class="cheat-section">
+                        <h3 data-i18n="cheat.pie">饼图</h3>
+                        <div class="cheat-item">
+                            <code class="cheat-code">pie title 标题</code>
+                            <span data-i18n="cheat.pieTitleDesc">饼图标题</span>
+                        </div>
+                        <div class="cheat-item">
+                            <code class="cheat-code">"标签" : 数值</code>
+                            <span data-i18n="cheat.pieDataDesc">数据项</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

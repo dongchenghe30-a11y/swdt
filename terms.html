@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - ClawDiag</title>
+    <meta name="description" content="ClawDiag Terms of Service">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Cpath d='M8 16L14 10L20 16L14 22L8 16Z' fill='white'/%3E%3Cpath d='M14 16L20 10L26 16L20 22L14 16Z' fill='white' fill-opacity='0.6'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #F9FAFB; }
+        .legal-container { max-width: 800px; margin: 80px auto 40px; padding: 32px; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .legal-container h1 { font-size: 28px; margin-bottom: 24px; color: #1F2937; border-bottom: 2px solid #2563EB; padding-bottom: 12px; }
+        .legal-container h2 { font-size: 20px; margin: 24px 0 12px; color: #1F2937; }
+        .legal-container p, .legal-container li { font-size: 15px; line-height: 1.8; color: #4B5563; margin-bottom: 12px; }
+        .legal-container ul { padding-left: 24px; }
+        .legal-container a { color: #2563EB; }
+    </style>
+</head>
+<body>
+    <div class="legal-container" id="content">
+        <!-- Content loaded by JS -->
+    </div>
+
+    <script>
+    (function() {
+        const isEnglish = location.pathname.includes('-en.html') || 
+                          new URLSearchParams(location.search).get('lang') === 'en' ||
+                          (localStorage.getItem('clawdiag-lang') === 'en');
+        
+        const content = document.getElementById('content');
+        
+        if (isEnglish) {
+            document.documentElement.lang = 'en';
+            document.title = 'Terms of Service - ClawDiag';
+            content.innerHTML = `
+                <h1>Terms of Service</h1>
+                <p>Last updated: April 1, 2026</p>
+                
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing and using ClawDiag services, you agree to be bound by these Terms of Service. If you do not agree to any part of these terms, please do not use our services.</p>
+                
+                <h2>2. Service Description</h2>
+                <p>ClawDiag provides free online diagram creation tools, supporting 19+ diagram types. Our service is based on Mermaid technology, providing diagram editing, preview, and export functionality.</p>
+                
+                <h2>3. Use Restrictions</h2>
+                <p>You agree to:</p>
+                <ul>
+                    <li>Not use this service for any illegal purposes</li>
+                    <li>Not attempt to interfere with or disrupt the normal operation of the service</li>
+                    <li>Not abuse or excessively use service resources</li>
+                    <li>Not copy, modify, or distribute our service content without authorization</li>
+                </ul>
+                
+                <h2>4. User Content</h2>
+                <p>Content you create while using the service (such as diagram code) belongs to you. However, you grant us the right to use this content to improve our services.</p>
+                
+                <h2>5. Intellectual Property</h2>
+                <p>The name, logo, design, and technology of ClawDiag are protected by intellectual property rights. Without authorization, you may not use our trademarks or technology.</p>
+                
+                <h2>6. Disclaimer</h2>
+                <p>The service is provided "as is" without any express or implied warranties. We do not guarantee that the service is error-free or uninterrupted.</p>
+                
+                <h2>7. Limitation of Liability</h2>
+                <p>We shall not be liable for any indirect or consequential damages arising from the use or inability to use the service.</p>
+                
+                <h2>8. Service Termination</h2>
+                <p>We reserve the right to terminate or suspend the service at any time without prior notice. For any fees incurred (if applicable), we will refund them on a pro-rata basis.</p>
+                
+                <h2>9. Governing Law</h2>
+                <p>These Terms of Service are governed by the laws of the People's Republic of China. Any disputes arising from these terms shall first be resolved through friendly negotiation; if negotiation fails, they shall be submitted to the competent court.</p>
+                
+                <h2>10. Contact Us</h2>
+                <p>If you have any questions, please contact us:</p>
+                <ul>
+                    <li>Email: support@clawdiag.com</li>
+                </ul>
+            `;
+        } else {
+            content.innerHTML = `
+                <h1>服务条款</h1>
+                <p>最后更新日期：2026年4月1日</p>
+                
+                <h2>1. 接受条款</h2>
+                <p>通过访问和使用 ClawDiag 服务，您同意接受本服务条款的约束。如果您不同意本条款的任何部分，请勿使用我们的服务。</p>
+                
+                <h2>2. 服务描述</h2>
+                <p>ClawDiag 提供免费的在线图表创建工具，支持19种图表类型。我们的服务基于Mermaid技术，提供图表编辑、预览和导出功能。</p>
+                
+                <h2>3. 使用限制</h2>
+                <p>您同意：</p>
+                <ul>
+                    <li>不将本服务用于任何非法目的</li>
+                    <li>不尝试干扰或破坏服务的正常运行</li>
+                    <li>不滥用或过度使用服务资源</li>
+                    <li>不复制、修改或分发我们的服务内容</li>
+                </ul>
+                
+                <h2>4. 用户内容</h2>
+                <p>您在使用服务时创建的内容（如图表代码）归您所有。但您授予我们使用这些内容来改善服务的权利。</p>
+                
+                <h2>5. 知识产权</h2>
+                <p>ClawDiag 的名称、标识、设计和技术均受知识产权保护。未经授权，您不得使用我们的商标或技术。</p>
+                
+                <h2>6. 免责声明</h2>
+                <p>服务按"原样"提供，不提供任何明示或暗示的保证。我们不保证服务无错误或不中断。</p>
+                
+                <h2>7. 责任限制</h2>
+                <p>对于因使用或无法使用服务而产生的任何间接、附带的损害，我们不承担责任。</p>
+                
+                <h2>8. 终止服务</h2>
+                <p>我们保留随时终止或暂停服务的权利，无需事先通知。对于已产生的费用（如适用），我们将按比例退还。</p>
+                
+                <h2>9. 适用法律</h2>
+                <p>本服务条款受中华人民共和国法律管辖。因本条款产生的争议，应首先通过友好协商解决；协商不成时，提交有管辖权的法院处理。</p>
+                
+                <h2>10. 联系我们</h2>
+                <p>如有任何问题，请联系我们：</p>
+                <ul>
+                    <li>电子邮件：support@clawdiag.com</li>
+                </ul>
+            `;
+        }
+    })();
+    </script>
+</body>
+</html>

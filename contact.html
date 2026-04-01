@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ClawDiag</title>
+    <meta name="description" content="Contact ClawDiag - Get in touch with us">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Cpath d='M8 16L14 10L20 16L14 22L8 16Z' fill='white'/%3E%3Cpath d='M14 16L20 10L26 16L20 22L14 16Z' fill='white' fill-opacity='0.6'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #F9FAFB; }
+        .contact-container { max-width: 800px; margin: 80px auto 40px; padding: 32px; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .contact-container h1 { font-size: 28px; margin-bottom: 24px; color: #1F2937; border-bottom: 2px solid #2563EB; padding-bottom: 12px; }
+        .contact-container p { font-size: 15px; line-height: 1.8; color: #4B5563; margin-bottom: 16px; }
+        .contact-card { background: #F9FAFB; border-radius: 8px; padding: 24px; margin-bottom: 24px; border: 1px solid #E5E7EB; }
+        .contact-card h3 { font-size: 18px; color: #1F2937; margin-bottom: 12px; }
+        .contact-card a { color: #2563EB; font-size: 15px; }
+        .contact-card span { display: block; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="contact-container" id="content">
+        <!-- Content loaded by JS -->
+    </div>
+
+    <script>
+    (function() {
+        const isEnglish = location.pathname.includes('-en.html') || 
+                          new URLSearchParams(location.search).get('lang') === 'en' ||
+                          (localStorage.getItem('clawdiag-lang') === 'en');
+        
+        const content = document.getElementById('content');
+        
+        if (isEnglish) {
+            document.documentElement.lang = 'en';
+            document.title = 'Contact Us - ClawDiag';
+            content.innerHTML = `
+                <h1>Contact Us</h1>
+                <p>We welcome any feedback or questions. Please choose one of the following ways to contact us.</p>
+                
+                <div class="contact-card">
+                    <h3>📧 Email</h3>
+                    <span>Technical Support: support@clawdiag.com</span>
+                    <span>Business Inquiry: business@clawdiag.com</span>
+                    <span>Media Contact: media@clawdiag.com</span>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>🕐 Business Hours</h3>
+                    <span>Monday to Friday: 9:00 - 18:00 (Beijing Time)</span>
+                    <span>Excluding holidays</span>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>💬 FAQ</h3>
+                    <span>For common questions about diagram creation, please visit our Help Center.</span>
+                    <span>We typically respond to emails within 24 hours.</span>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>📍 Company Address</h3>
+                    <span>88 Kejiyuan Road, Haidian District, Beijing, China</span>
+                </div>
+            `;
+        } else {
+            content.innerHTML = `
+                <h1>联系我们</h1>
+                <p>我们欢迎任何形式的反馈和问题。请选择以下方式与我们联系。</p>
+                
+                <div class="contact-card">
+                    <h3>📧 电子邮件</h3>
+                    <span>技术支持：support@clawdiag.com</span>
+                    <span>商务合作：business@clawdiag.com</span>
+                    <span>媒体联络：media@clawdiag.com</span>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>🕐 工作时间</h3>
+                    <span>周一至周五：9:00 - 18:00（北京时间）</span>
+                    <span>节假日除外</span>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>💬 常见问题</h3>
+                    <span>关于图表创建的常见问题，请访问我们的帮助中心。</span>
+                    <span>我们通常在24小时内回复邮件。</span>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>📍 公司地址</h3>
+                    <span>中国北京市海淀区科技园路88号</span>
+                </div>
+            `;
+        }
+    })();
+    </script>
+</body>
+</html>
